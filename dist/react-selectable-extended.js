@@ -120,18 +120,19 @@ return /******/ (function(modules) { // webpackBootstrap
 		function SelectableGroup(props) {
 			_classCallCheck(this, SelectableGroup);
 
-			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(SelectableGroup).call(this, props));
+			var _this = _possibleConstructorReturn(this, (SelectableGroup.__proto__ || Object.getPrototypeOf(SelectableGroup)).call(this, props));
 
 			_this.state = {
 				isBoxSelecting: false,
 				boxWidth: 0,
 				boxHeight: 0,
 				currentItems: [],
-				selectingItems: [],
-				mouseDownStarted: false,
-				mouseMoveStarted: false,
-				mouseUpStarted: false
+				selectingItems: []
 			};
+
+			_this._mouseDownStarted = false;
+			_this._mouseMoveStarted = false;
+			_this._mouseUpStarted = false;
 
 			_this._mouseDownData = null;
 			_this._registry = [];
@@ -198,8 +199,10 @@ return /******/ (function(modules) { // webpackBootstrap
 		}, {
 			key: '_openSelector',
 			value: function _openSelector(e) {
-				if (this.state.mouseMoveStarted) return;
-				this.state.mouseMoveStarted = true;
+				var _this2 = this;
+
+				if (this._mouseMoveStarted) return;
+				this._mouseMoveStarted = true;
 
 				e = this._desktopEventCoords(e);
 
@@ -214,7 +217,7 @@ return /******/ (function(modules) { // webpackBootstrap
 					boxTop: Math.min(e.pageY, this._mouseDownData.initialH),
 					selectingItems: this._updatedSelecting() // Update list of currently selected items...
 				}, function () {
-					this.state.mouseMoveStarted = false;
+					_this2._mouseMoveStarted = false;
 				});
 
 				this.props.duringSelection(this.state.selectingItems);
@@ -250,10 +253,10 @@ return /******/ (function(modules) { // webpackBootstrap
 			value: function _click(e) {
 				var node = _reactDom2.default.findDOMNode(this);
 
-				var _props = this.props;
-				var tolerance = _props.tolerance;
-				var dontClearSelection = _props.dontClearSelection;
-				var selectbox = _reactDom2.default.findDOMNode(this.refs.selectbox);
+				var _props = this.props,
+				    tolerance = _props.tolerance,
+				    dontClearSelection = _props.dontClearSelection,
+				    selectbox = _reactDom2.default.findDOMNode(this.refs.selectbox);
 
 				var newItems = []; // For holding the clicked item
 
@@ -269,16 +272,16 @@ return /******/ (function(modules) { // webpackBootstrap
 						if (!dontClearSelection) {
 							newItems.push(itemData.key); // Only clicked item will be selected now
 						} else {
-								// Toggle item selection
-								if (newItems.indexOf(itemData.key) == -1) {
-									// Not selected currently, mark item as selected
-									newItems.push(itemData.key);
-								} else {
-									// Selected currently, mark item as unselected
-									var index = newItems.indexOf(itemData.key);
-									newItems.splice(index, 1);
-								}
+							// Toggle item selection
+							if (newItems.indexOf(itemData.key) == -1) {
+								// Not selected currently, mark item as selected
+								newItems.push(itemData.key);
+							} else {
+								// Selected currently, mark item as unselected
+								var index = newItems.indexOf(itemData.key);
+								newItems.splice(index, 1);
 							}
+						}
 					}
 				});
 
@@ -305,16 +308,18 @@ return /******/ (function(modules) { // webpackBootstrap
 		}, {
 			key: '_mouseDown',
 			value: function _mouseDown(e) {
-				if (this.state.mouseDownStarted) return;
-				this.state.mouseDownStarted = true;
-				this.state.mouseUpStarted = false;
+				if (e.target.dataset.preventSelection === 'true') return;
+
+				if (this._mouseDownStarted) return;
+				this._mouseDownStarted = true;
+				this._mouseUpStarted = false;
 
 				e = this._desktopEventCoords(e);
 
 				var node = _reactDom2.default.findDOMNode(this);
-				var collides = undefined,
-				    offsetData = undefined,
-				    distanceData = undefined;
+				var collides = void 0,
+				    offsetData = void 0,
+				    distanceData = void 0;
 				_reactDom2.default.findDOMNode(this).addEventListener('mouseup', this._mouseUp);
 				_reactDom2.default.findDOMNode(this).addEventListener('touchend', this._mouseUp);
 
@@ -357,9 +362,9 @@ return /******/ (function(modules) { // webpackBootstrap
 		}, {
 			key: '_mouseUp',
 			value: function _mouseUp(e) {
-				if (this.state.mouseUpStarted) return;
-				this.state.mouseUpStarted = true;
-				this.state.mouseDownStarted = false;
+				if (this._mouseUpStarted) return;
+				this._mouseUpStarted = true;
+				this._mouseDownStarted = false;
 
 				_reactDom2.default.findDOMNode(this).removeEventListener('mousemove', this._openSelector);
 				_reactDom2.default.findDOMNode(this).removeEventListener('mouseup', this._mouseUp);
@@ -378,16 +383,16 @@ return /******/ (function(modules) { // webpackBootstrap
 		}, {
 			key: '_selectElements',
 			value: function _selectElements(e) {
-				var _this2 = this;
+				var _this3 = this;
 
 				// Clear array for duringSelection, since the "selecting" is now finished
 				this._clearSelectings();
 				this.props.duringSelection(this.state.selectingItems); // Last time duringSelection() will be called since drag is complete.
 
-				var _props2 = this.props;
-				var tolerance = _props2.tolerance;
-				var dontClearSelection = _props2.dontClearSelection;
-				var selectbox = _reactDom2.default.findDOMNode(this.refs.selectbox);
+				var _props2 = this.props,
+				    tolerance = _props2.tolerance,
+				    dontClearSelection = _props2.dontClearSelection,
+				    selectbox = _reactDom2.default.findDOMNode(this.refs.selectbox);
 
 				if (!dontClearSelection) {
 					// Clear old selection if feature is not enabled
@@ -417,7 +422,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				this._registry.forEach(function (itemData) {
 					if (itemData.domNode && (0, _doObjectsCollide2.default)(selectbox, itemData.domNode, tolerance)) {
 						newItems.push(itemData.key);
-						if (_this2.state.currentItems.indexOf(itemData.key) == -1 && dontClearSelection) {
+						if (_this3.state.currentItems.indexOf(itemData.key) == -1 && dontClearSelection) {
 							allNewItemsAlreadySelected = false;
 						}
 					}
@@ -623,12 +628,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
+
 	/**
 	 * Given a node, get everything needed to calculate its boundaries
 	 * @param  {HTMLElement} node 
 	 * @return {Object}
 	 */
-
 	exports.default = function (node) {
 		var rect = node.getBoundingClientRect();
 
@@ -734,7 +739,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			function SelectableItem() {
 				_classCallCheck(this, SelectableItem);
 
-				return _possibleConstructorReturn(this, Object.getPrototypeOf(SelectableItem).apply(this, arguments));
+				return _possibleConstructorReturn(this, (SelectableItem.__proto__ || Object.getPrototypeOf(SelectableItem)).apply(this, arguments));
 			}
 
 			_createClass(SelectableItem, [{
