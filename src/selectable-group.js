@@ -171,6 +171,8 @@ class SelectableGroup extends React.Component {
 	 * be added, and if so, attach event listeners
 	 */
 	_mouseDown (e) {
+    if (e.target.dataset.preventSelection === 'true') return;
+
 		if(this._mouseDownStarted) return;
 		this._mouseDownStarted = true; 
 		this._mouseUpStarted = false;  
