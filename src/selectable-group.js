@@ -285,9 +285,15 @@ class SelectableGroup extends React.Component {
 		});
 
 		var newCurrentItems = [];
+    var shouldBeAddedArray = [];
+    newItems.forEach(item => {
+      if (this.state.currentItems.indexOf(item) === -1) {
+        shouldBeAddedArray.push(item);
+      }
+    });
 		if(!dontClearSelection||!allNewItemsAlreadySelected){ // dontClearSelection is not enabled or
 															  // newItems should be added to the selection
-			newCurrentItems = this.state.currentItems.concat(newItems);
+      newCurrentItems = this.state.currentItems.concat(shouldBeAddedArray);
 		}else{
 			newCurrentItems = this.state.currentItems.filter(function(i) {return newItems.indexOf(i) < 0;}); // Delete newItems from currentItems
 		}
