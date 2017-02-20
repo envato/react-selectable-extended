@@ -429,10 +429,16 @@ return /******/ (function(modules) { // webpackBootstrap
 				});
 
 				var newCurrentItems = [];
+				var shouldBeAddedArray = [];
+				newItems.forEach(function (item) {
+					if (_this3.state.currentItems.indexOf(item) === -1) {
+						shouldBeAddedArray.push(item);
+					}
+				});
 				if (!dontClearSelection || !allNewItemsAlreadySelected) {
 					// dontClearSelection is not enabled or
 					// newItems should be added to the selection
-					newCurrentItems = this.state.currentItems.concat(newItems);
+					newCurrentItems = this.state.currentItems.concat(shouldBeAddedArray);
 				} else {
 					newCurrentItems = this.state.currentItems.filter(function (i) {
 						return newItems.indexOf(i) < 0;
