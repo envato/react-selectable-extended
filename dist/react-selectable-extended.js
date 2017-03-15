@@ -168,7 +168,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				_reactDom2.default.findDOMNode(this).addEventListener('touchstart', this._mouseDown);
 			}
 
-			/**	 
+			/**
 	   * Remove global event listeners
 	   */
 
@@ -264,7 +264,7 @@ return /******/ (function(modules) { // webpackBootstrap
 					// Clear exisiting selections
 					this._clearSelections();
 				} else {
-					newItems = this.state.currentItems;
+					newItems = this.props.selectedItems;
 				}
 
 				this._registry.forEach(function (itemData) {
@@ -297,7 +297,7 @@ return /******/ (function(modules) { // webpackBootstrap
 					currentItems: newItems
 				});
 
-				this.props.onSelection(this.state.currentItems);
+				this.props.onSelection(newItems);
 			}
 
 			/**
@@ -422,7 +422,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				this._registry.forEach(function (itemData) {
 					if (itemData.domNode && (0, _doObjectsCollide2.default)(selectbox, itemData.domNode, tolerance)) {
 						newItems.push(itemData.key);
-						if (_this3.state.currentItems.indexOf(itemData.key) == -1 && dontClearSelection) {
+						if (_this3.props.selectedItems.indexOf(itemData.key) == -1 && dontClearSelection) {
 							allNewItemsAlreadySelected = false;
 						}
 					}
@@ -431,16 +431,16 @@ return /******/ (function(modules) { // webpackBootstrap
 				var newCurrentItems = [];
 				var shouldBeAddedArray = [];
 				newItems.forEach(function (item) {
-					if (_this3.state.currentItems.indexOf(item) === -1) {
+					if (_this3.props.selectedItems.indexOf(item) === -1) {
 						shouldBeAddedArray.push(item);
 					}
 				});
 				if (!dontClearSelection || !allNewItemsAlreadySelected) {
 					// dontClearSelection is not enabled or
 					// newItems should be added to the selection
-					newCurrentItems = this.state.currentItems.concat(shouldBeAddedArray);
+					newCurrentItems = this.props.selectedItems.concat(shouldBeAddedArray);
 				} else {
-					newCurrentItems = this.state.currentItems.filter(function (i) {
+					newCurrentItems = this.props.selectedItems.filter(function (i) {
 						return newItems.indexOf(i) < 0;
 					}); // Delete newItems from currentItems
 				}
@@ -452,7 +452,7 @@ return /******/ (function(modules) { // webpackBootstrap
 					currentItems: newCurrentItems
 				});
 
-				this.props.onSelection(this.state.currentItems);
+				this.props.onSelection(newCurrentItems);
 			}
 
 			/**
@@ -477,7 +477,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			}
 
 			/**
-	   * Used to return event object with desktop (non-touch) format of event 
+	   * Used to return event object with desktop (non-touch) format of event
 	   * coordinates, regardless of whether the action is from mobile or desktop.
 	   */
 
@@ -538,25 +538,25 @@ return /******/ (function(modules) { // webpackBootstrap
 	SelectableGroup.propTypes = {
 
 		/**
-	  * Event that will fire when items are selected. Passes an array of keys.		 
+	  * Event that will fire when items are selected. Passes an array of keys.
 	  */
 		onSelection: _react2.default.PropTypes.func,
 
 		/**
-	  * Event that will fire rapidly during selection (while the selector is 
-	  * being dragged). Passes an array of keys.		 
+	  * Event that will fire rapidly during selection (while the selector is
+	  * being dragged). Passes an array of keys.
 	  */
 		duringSelection: _react2.default.PropTypes.func,
 
 		/**
-	  * The component that will represent the Selectable DOM node		 
+	  * The component that will represent the Selectable DOM node
 	  */
 		component: _react2.default.PropTypes.node,
 
 		/**
 	  * Amount of forgiveness an item will offer to the selectbox before registering
-	  * a selection, i.e. if only 1px of the item is in the selection, it shouldn't be 
-	  * included.		 
+	  * a selection, i.e. if only 1px of the item is in the selection, it shouldn't be
+	  * included.
 	  */
 		tolerance: _react2.default.PropTypes.number,
 
@@ -572,13 +572,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	  * except for selections that contain only previously selected items--in this case
 	  * it unselects those items.
 	  */
-		dontClearSelection: _react2.default.PropTypes.bool
+		dontClearSelection: _react2.default.PropTypes.bool,
 
+		/**
+	  * An array of keys to control selected items via flux/redux as a prop
+	  */
+		selectedItems: _react2.default.PropTypes.array
 	};
 
 	SelectableGroup.defaultProps = {
 		onSelection: function onSelection() {},
 		duringSelection: function duringSelection() {},
+		selectedItems: [],
 		component: 'div',
 		tolerance: 0,
 		fixedPosition: false,
