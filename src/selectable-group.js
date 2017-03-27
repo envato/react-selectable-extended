@@ -359,13 +359,24 @@ class SelectableGroup extends React.Component {
 			float: 'left'
 		};
 
+		const {
+			selectedItems,
+			onSelection,
+			duringSelection,
+			dontClearSelection,
+			component,
+			tolerance,
+			fixedPosition,
+			...remainingProps,
+		} = this.props;
+
 		return (
-			<this.props.component {...this.props}>
+			<component {...remainingProps}>
 				{this.state.isBoxSelecting &&
 				  <div style={boxStyle} ref="selectbox"><span style={spanStyle}></span></div>
 				}
 				{this.props.children}
-			</this.props.component>
+			</component>
 		);
 	}
 }

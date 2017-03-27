@@ -108,6 +108,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -519,9 +521,19 @@ return /******/ (function(modules) { // webpackBootstrap
 					float: 'left'
 				};
 
+				var _props3 = this.props,
+				    selectedItems = _props3.selectedItems,
+				    onSelection = _props3.onSelection,
+				    duringSelection = _props3.duringSelection,
+				    dontClearSelection = _props3.dontClearSelection,
+				    component = _props3.component,
+				    tolerance = _props3.tolerance,
+				    fixedPosition = _props3.fixedPosition,
+				    remainingProps = _objectWithoutProperties(_props3, ['selectedItems', 'onSelection', 'duringSelection', 'dontClearSelection', 'component', 'tolerance', 'fixedPosition']);
+
 				return _react2.default.createElement(
-					this.props.component,
-					this.props,
+					'component',
+					remainingProps,
 					this.state.isBoxSelecting && _react2.default.createElement(
 						'div',
 						{ style: boxStyle, ref: 'selectbox' },
