@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
 import isNodeInRoot from './nodeInRoot';
 import getBoundsForNode from './getBoundsForNode';
 import doObjectsCollide from './doObjectsCollide';
@@ -386,44 +387,44 @@ SelectableGroup.propTypes = {
 	/**
 	 * Event that will fire when items are selected. Passes an array of keys.
 	 */
-	onSelection: React.PropTypes.func,
+	onSelection: PropTypes.func,
 
 	/**
 	 * Event that will fire rapidly during selection (while the selector is
 	 * being dragged). Passes an array of keys.
 	 */
-	duringSelection: React.PropTypes.func,
+	duringSelection: PropTypes.func,
 
 	/**
 	 * The component that will represent the Selectable DOM node
 	 */
-	component: React.PropTypes.node,
+	component: PropTypes.node,
 
 	/**
 	 * Amount of forgiveness an item will offer to the selectbox before registering
 	 * a selection, i.e. if only 1px of the item is in the selection, it shouldn't be
 	 * included.
 	 */
-	tolerance: React.PropTypes.number,
+	tolerance: PropTypes.number,
 
 	/**
 	 * In some cases, it the bounding box may need fixed positioning, if your layout
 	 * is relying on fixed positioned elements, for instance.
 	 * @type boolean
 	 */
-	fixedPosition: React.PropTypes.bool,
+	fixedPosition: PropTypes.bool,
 
 	/**
 	 * When enabled, makes all new selections add to the already selected items,
 	 * except for selections that contain only previously selected items--in this case
 	 * it unselects those items.
 	 */
-	dontClearSelection: React.PropTypes.bool,
+	dontClearSelection: PropTypes.bool,
 
 	/**
 	 * An array of keys to control selected items via flux/redux as a prop
 	 */
-	selectedItems: React.PropTypes.array
+	selectedItems: PropTypes.array
 };
 
 SelectableGroup.defaultProps = {
@@ -437,7 +438,7 @@ SelectableGroup.defaultProps = {
 };
 
 SelectableGroup.childContextTypes = {
-	selectable: React.PropTypes.object
+	selectable: PropTypes.object
 };
 
 export default SelectableGroup;

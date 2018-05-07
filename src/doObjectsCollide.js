@@ -31,23 +31,23 @@ const coordsCollide = (aTop, aLeft, bTop, bLeft, aWidth, aHeight, bWidth, bHeigh
 
 /**
  * Given two objects containing "top", "left", "offsetWidth" and "offsetHeight"
- * properties, determine if they collide. 
+ * properties, determine if they collide.
  * @param  {Object|HTMLElement} a
- * @param  {Object|HTMLElement} b	 
+ * @param  {Object|HTMLElement} b
  * @return {bool}
  */
-export default (a, b, tolerance) => {		
+export default (a, b, tolerance) => {
 	const aObj = (a instanceof HTMLElement) ? getBoundsForNode(a) : a,
 		  bObj = (b instanceof HTMLElement) ? getBoundsForNode(b) : b;
 
 	return coordsCollide(
-		aObj.top, 
-		aObj.left, 
-		bObj.top, 
-		bObj.left, 
-		aObj.offsetWidth, 
-		aObj.offsetHeight, 
-		bObj.offsetWidth, 
+		aObj.top,
+		aObj.left,
+		bObj.top,
+		bObj.left,
+		aObj.offsetWidth,
+		aObj.offsetHeight,
+		bObj.offsetWidth,
 		bObj.offsetHeight,
 		tolerance
 	);
