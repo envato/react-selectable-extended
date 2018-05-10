@@ -1,13 +1,13 @@
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("react"), require("react-dom"));
+		module.exports = factory(require("react"), require("react-dom"), require("prop-types"));
 	else if(typeof define === 'function' && define.amd)
-		define(["react", "react-dom"], factory);
+		define(["react", "react-dom", "prop-types"], factory);
 	else if(typeof exports === 'object')
-		exports["Selectable"] = factory(require("react"), require("react-dom"));
+		exports["Selectable"] = factory(require("react"), require("react-dom"), require("prop-types"));
 	else
-		root["Selectable"] = factory(root["React"], root["ReactDOM"]);
-})(this, function(__WEBPACK_EXTERNAL_MODULE_2__, __WEBPACK_EXTERNAL_MODULE_3__) {
+		root["Selectable"] = factory(root["React"], root["ReactDOM"], root["PropTypes"]);
+})(this, function(__WEBPACK_EXTERNAL_MODULE_2__, __WEBPACK_EXTERNAL_MODULE_3__, __WEBPACK_EXTERNAL_MODULE_4__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -52,7 +52,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -65,7 +65,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _selectableGroup2 = _interopRequireDefault(_selectableGroup);
 
-	var _createSelectable = __webpack_require__(7);
+	var _createSelectable = __webpack_require__(8);
 
 	var _createSelectable2 = _interopRequireDefault(_createSelectable);
 
@@ -74,9 +74,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.SelectableGroup = _selectableGroup2.default;
 	exports.createSelectable = _createSelectable2.default;
 
-/***/ },
+/***/ }),
 /* 1 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -94,15 +94,19 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 
-	var _nodeInRoot = __webpack_require__(4);
+	var _propTypes = __webpack_require__(4);
+
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+
+	var _nodeInRoot = __webpack_require__(5);
 
 	var _nodeInRoot2 = _interopRequireDefault(_nodeInRoot);
 
-	var _getBoundsForNode = __webpack_require__(5);
+	var _getBoundsForNode = __webpack_require__(6);
 
 	var _getBoundsForNode2 = _interopRequireDefault(_getBoundsForNode);
 
-	var _doObjectsCollide = __webpack_require__(6);
+	var _doObjectsCollide = __webpack_require__(7);
 
 	var _doObjectsCollide2 = _interopRequireDefault(_doObjectsCollide);
 
@@ -552,44 +556,44 @@ return /******/ (function(modules) { // webpackBootstrap
 		/**
 	  * Event that will fire when items are selected. Passes an array of keys.
 	  */
-		onSelection: _react2.default.PropTypes.func,
+		onSelection: _propTypes2.default.func,
 
 		/**
 	  * Event that will fire rapidly during selection (while the selector is
 	  * being dragged). Passes an array of keys.
 	  */
-		duringSelection: _react2.default.PropTypes.func,
+		duringSelection: _propTypes2.default.func,
 
 		/**
 	  * The component that will represent the Selectable DOM node
 	  */
-		component: _react2.default.PropTypes.node,
+		component: _propTypes2.default.node,
 
 		/**
 	  * Amount of forgiveness an item will offer to the selectbox before registering
 	  * a selection, i.e. if only 1px of the item is in the selection, it shouldn't be
 	  * included.
 	  */
-		tolerance: _react2.default.PropTypes.number,
+		tolerance: _propTypes2.default.number,
 
 		/**
 	  * In some cases, it the bounding box may need fixed positioning, if your layout
 	  * is relying on fixed positioned elements, for instance.
 	  * @type boolean
 	  */
-		fixedPosition: _react2.default.PropTypes.bool,
+		fixedPosition: _propTypes2.default.bool,
 
 		/**
 	  * When enabled, makes all new selections add to the already selected items,
 	  * except for selections that contain only previously selected items--in this case
 	  * it unselects those items.
 	  */
-		dontClearSelection: _react2.default.PropTypes.bool,
+		dontClearSelection: _propTypes2.default.bool,
 
 		/**
 	  * An array of keys to control selected items via flux/redux as a prop
 	  */
-		selectedItems: _react2.default.PropTypes.array
+		selectedItems: _propTypes2.default.array
 	};
 
 	SelectableGroup.defaultProps = {
@@ -603,26 +607,32 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 	SelectableGroup.childContextTypes = {
-		selectable: _react2.default.PropTypes.object
+		selectable: _propTypes2.default.object
 	};
 
 	exports.default = SelectableGroup;
 
-/***/ },
+/***/ }),
 /* 2 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	module.exports = __WEBPACK_EXTERNAL_MODULE_2__;
 
-/***/ },
+/***/ }),
 /* 3 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	module.exports = __WEBPACK_EXTERNAL_MODULE_3__;
 
-/***/ },
+/***/ }),
 /* 4 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
+
+	module.exports = __WEBPACK_EXTERNAL_MODULE_4__;
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports) {
 
 	"use strict";
 
@@ -642,9 +652,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	exports.default = isNodeInRoot;
 
-/***/ },
-/* 5 */
-/***/ function(module, exports) {
+/***/ }),
+/* 6 */
+/***/ (function(module, exports) {
 
 	"use strict";
 
@@ -668,9 +678,9 @@ return /******/ (function(modules) { // webpackBootstrap
 		};
 	};
 
-/***/ },
-/* 6 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -678,7 +688,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  value: true
 	});
 
-	var _getBoundsForNode = __webpack_require__(5);
+	var _getBoundsForNode = __webpack_require__(6);
 
 	var _getBoundsForNode2 = _interopRequireDefault(_getBoundsForNode);
 
@@ -714,9 +724,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	/**
 	 * Given two objects containing "top", "left", "offsetWidth" and "offsetHeight"
-	 * properties, determine if they collide. 
+	 * properties, determine if they collide.
 	 * @param  {Object|HTMLElement} a
-	 * @param  {Object|HTMLElement} b	 
+	 * @param  {Object|HTMLElement} b
 	 * @return {bool}
 	 */
 
@@ -727,9 +737,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	  return coordsCollide(aObj.top, aObj.left, bObj.top, bObj.left, aObj.offsetWidth, aObj.offsetHeight, bObj.offsetWidth, bObj.offsetHeight, tolerance);
 	};
 
-/***/ },
-/* 7 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -746,6 +756,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _reactDom = __webpack_require__(3);
 
 	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	var _propTypes = __webpack_require__(4);
+
+	var _propTypes2 = _interopRequireDefault(_propTypes);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -786,11 +800,11 @@ return /******/ (function(modules) { // webpackBootstrap
 		}(_react2.default.Component);
 
 		SelectableItem.contextTypes = {
-			selectable: _react2.default.PropTypes.object
+			selectable: _propTypes2.default.object
 		};
 
 		SelectableItem.propTypes = {
-			selectableKey: _react2.default.PropTypes.any.isRequired
+			selectableKey: _propTypes2.default.any.isRequired
 		};
 
 		return SelectableItem;
@@ -798,7 +812,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	exports.default = createSelectable;
 
-/***/ }
+/***/ })
 /******/ ])
 });
 ;
