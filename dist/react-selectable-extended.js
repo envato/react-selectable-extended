@@ -535,8 +535,10 @@ return /******/ (function(modules) { // webpackBootstrap
 				    fixedPosition = _props3.fixedPosition,
 				    remainingProps = _objectWithoutProperties(_props3, ['selectedItems', 'onSelection', 'duringSelection', 'dontClearSelection', 'component', 'tolerance', 'fixedPosition']);
 
+				var SelectableComponentWrapper = component;
+
 				return _react2.default.createElement(
-					'component',
+					SelectableComponentWrapper,
 					remainingProps,
 					this.state.isBoxSelecting && _react2.default.createElement(
 						'div',

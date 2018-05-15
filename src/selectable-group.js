@@ -371,13 +371,15 @@ class SelectableGroup extends React.Component {
 			...remainingProps,
 		} = this.props;
 
+		const SelectableComponentWrapper = component;
+
 		return (
-			<component {...remainingProps}>
+			<SelectableComponentWrapper {...remainingProps}>
 				{this.state.isBoxSelecting &&
 				  <div style={boxStyle} ref="selectbox"><span style={spanStyle}></span></div>
 				}
 				{this.props.children}
-			</component>
+			</SelectableComponentWrapper>
 		);
 	}
 }
